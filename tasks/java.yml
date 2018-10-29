@@ -1,7 +1,7 @@
 #Install java
 ---
 - name: install java
-  hosts: all
+  hosts: clients
   become: true
   
   tasks:
@@ -9,3 +9,17 @@
     yum:
       name: java-1.8.0-openjdk-headless.x86_64
       state: present
+when: java_install['package_source'] == "repository"
+
+- name: mkdir /tmp/java
+  file: path=/tmp/java state=directory
+
+- name: copy java.rpm
+  copy: 
+    src: jdk-8u161.rpm
+    dest: /tmp/java
+
+- name: install java
+  shell: |
+   yum localinstall /tmp/java/jdk-8u161.rpm -y
+when: java_install['package_source'] == "local"
