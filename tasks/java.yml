@@ -1,0 +1,11 @@
+#Install java
+---
+- name: install java
+  hosts: all
+  become: true
+  
+  tasks:
+  - name: install java
+    yum:
+      name: java-1.8.0-openjdk-headless.x86_64
+      state: present

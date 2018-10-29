@@ -1,0 +1,14 @@
+#Install graylog with elasticsearch and mongodb
+---
+- name: Install graylog
+  hosts: all
+  become: true
+
+# graylog_version: '2.4'
+# graylog_package_state: present
+
+# graylog_service_state: started
+# graylog_service_enabled: true
+
+# graylog_network_host: localhost
+# graylog_http_port: 9000

@@ -1,0 +1,57 @@
+# Install mongodb 
+---
+- name: mkdir /tmp/MONGO_RPMS
+  file: path=/tmp/MONGO_RPMS state=directory
+
+- name: copy RPMs to /tmp/MONGO_RPMS
+  copy: 
+   src: 
+      - mongodb-org-mongos-3.6.8-1.el6.x86_64.rpm
+      - mongodb-org-3.6.8-1.el6.x86_64.rpm
+      - mongodb-org-server-3.6.8-1.el6.x86_64.rpm
+      - mongodb-org-shell-3.6.8-1.el6.x86_64.rpm
+      - mongodb-org-tools-3.6.8-1.el6.x86_64.rpm
+    dest: /tmp/MONGO_RPMS
+    register: rpms_copied
+
+- name: install RPMs
+  yum:
+    name:
+      - /tmp/MONGO_RPMS/mongodb-org-mongos-3.6.8-1.el6.x86_64.rpm
+      - /tmp/MONGO_RPMS/mongodb-org-3.6.8-1.el6.x86_64.rpm
+      - /tmp/MONGO_RPMS/mongodb-org-server-3.6.8-1.el6.x86_64.rpm
+      - /tmp/MONGO_RPMS/mongodb-org-shell-3.6.8-1.el6.x86_64.rpm
+      - /tmp/MONGO_RPMS/mongodb-org-tools-3.6.8-1.el6.x86_64.rpm
+  state: present  
+
+  #another way to copy rpm packages
+  #   src: "{{item.src}}"
+  #   dest: "{{item.dest}}"
+  # shell : |
+  #    yum localhost "{{item}}" -y
+  # # with_items:
+  #      - "mongodb-org-mongos-3.6.8-1.el6.x86_64.rpm"
+  #      - "mongodb-org-3.6.8-1.el6.x86_64.rpm"
+  #      - "mongodb-org-server-3.6.8-1.el6.x86_64.rpm"
+  #      - "mongodb-org-shell-3.6.8-1.el6.x86_64.rpm"
+  #      - "mongodb-org-tools-3.6.8-1.el6.x86_64.rpm"
+  #    - {src: 'mongodb-org-mongos-3.6.8-1.el6.x86_64.rpm', dest: '/tmp/MONGO_RPMS'}  
+  #    - {src: 'mongodb-org-3.6.8-1.el6.x86_64.rpm', dest: '/tmp/MONGO_RPMS'}
+  #    - {src: 'mongodb-org-server-3.6.8-1.el6.x86_64.rpm', dest: '/tmp/MONGO_RPMS'}
+  #    - {src: 'mongodb-org-shell-3.6.8-1.el6.x86_64.rpm', dest: '/tmp/MONGO_RPMS'}
+  #    - {src: 'mongodb-org-tools-3.6.8-1.el6.x86_64.rpm', dest: '/tmp/MONGO_RPMS'}
+
+  #for local rpm find and install
+  #   - name: Find all rpm files in /tmp/MONGO_RPMS/ folder
+  #   find:
+  #     paths: "/tmp/MONGO_RPMS/"
+  #     pattern: "*.rpm"
+  #   register: rpm_files
+
+  # - set_fact:
+  #    rpm_list: "{{ rpm_files.files | map(attribute='path') | list}}"
+
+  # - name: installing the rpm files
+  #   yum:
+  #     name: "{{rpm_list}}"
+  #     state: present
