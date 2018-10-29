@@ -10,5 +10,5 @@ Example Playbook
 ```
    	- hosts: clients
   	 roles:
-    	- role: graylog
+    	 - role: graylog
 ```
