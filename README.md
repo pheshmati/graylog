@@ -1,4 +1,5 @@
-#gray log installation with (java-elasticsearch & mongodb)
+gray log installation with (java-elasticsearch & mongodb)
+---
 
 Example Inventory ==> /etc/ansible/hosts
 [clients]
